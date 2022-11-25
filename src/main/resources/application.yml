@@ -12,8 +12,9 @@ spring:
     properties:
       hibernate:
 #        show_sql: true # System.out.print를 통해서 찍힘. logger를 사용한다면 주석처리 할 것.
-        format_sql: true
+        format_sql: true # 쿼리 한 줄에 나오지 않고 formatting되어 보기 좋게 출력됨
 
 logging:
   level:
     org.hibernate.SQL: debug # hibernate가 남기는 모든 SQL이 모두 로그로 남는다
+#    org.hibernate.type: trace # 파라미터 바인딩된 파라미터까지 로그로 나온다.
