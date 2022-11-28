@@ -81,7 +81,6 @@ class MemberRepositoryTest {
 
         List<Member> result = memberRepository.findMember("BBB", "bbb@gmail.com");
         assertThat(result.get(0)).isEqualTo(m2);
-
     }
 
 }

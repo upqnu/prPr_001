@@ -1,17 +1,15 @@
 package upqnu.prPr.todo.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import upqnu.prPr.member.entity.Member;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"todoId", "title", "todoBody"})
+@ToString(of = {"todoId", "todoTitle", "todoBody"})
 public class Todo {
 
     @Id
@@ -20,7 +18,7 @@ public class Todo {
 
 //    private TodoStatus todoStatus;
 
-    private String title;
+    private String todoTitle;
     private String todoBody;
 //    private ??? todoTime;
 //    private TodoComp todoComp; // 완료여부 - todo가 존재하는 상태에서 완료/미완료로 구분
@@ -29,8 +27,13 @@ public class Todo {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Todo(String title, Member member) {
-        this.title = title;
+    public Todo(String todoTitle, String todoBody) {
+        this.todoTitle = todoTitle;
+        this.todoBody = todoBody;
+    }
+
+    public Todo(String todoTitle, Member member) {
+        this.todoTitle = todoTitle;
         if(member != null) chnageMember(member);
     }
 
