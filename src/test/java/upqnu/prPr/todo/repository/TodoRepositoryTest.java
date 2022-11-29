@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import upqnu.prPr.member.entity.Member;
 import upqnu.prPr.member.repository.MemberRepository;
@@ -167,9 +168,10 @@ class TodoRepositoryTest {
 //        String todoBody = "body1";
 
         PageRequest pageRequest =
-                PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "todoTitle")); // Spring Data JPA는 페이지를 1이 아닌 0부터 시작함. sorting 필요없으면 빼도 된다.
+                PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "todoId")); // Spring Data JPA는 페이지를 1이 아닌 0부터 시작함. sorting 필요없으면 빼도 된다.
 
         Page<Todo> page = todoRepository.findByTodoBody("body2", pageRequest); // Pageable이 있어서 구현체 없이도 구현 가능 + totalCount 쿼리도 날려 준다.
+//        Page<TodoDto> toMap = page.map(todo -> new TodoDto(todo.getTodoId(), todo.getTodoTitle(), todo.getTodoBody()));// app에는 entity가 그대로 노출되면 안 되기에 dto로 변환해야 함. Page를 dto로 쉽게 변환하는 방법.
 
         List<Todo> content = page.getContent();
 //        long totalElements = page.getTotalElements();
@@ -184,6 +186,30 @@ class TodoRepositoryTest {
         assertThat(page.getTotalElements()).isEqualTo(1); // 총 컨텐츠 갯수는 5개이지만 body2"는 1개 뿐이기 때문에 1로 기대
         assertThat(page.getNumber()).isEqualTo(0); // page number가져오기. 첫 페이지여서 0
         assertThat(page.getTotalPages()).isEqualTo(1); // 총 페이지 갯수 ("body1"이었다면 총 4개의 컨텐트, 페이지사이즈 = 3 이니까 2로 기대)
+        assertThat(page.isFirst()).isTrue(); // 첫번째 페이지 존재여부
+        assertThat(page.hasNext()).isFalse(); // 다음 페이지 존재여부 ("body1"이었다면 총 4개의 컨텐트, 페이지사이즈 = 3 이니까 총 2페이지이므로 isTrue)
+    }
+
+    @Test
+    public void slicing() { // slice는 total을 지원하지 않음 (지원할 필요 없음) - 무한스크롤 구현에 필요함
+        todoRepository.save(new Todo("title1","body1"));
+        todoRepository.save(new Todo("title2","body1"));
+        todoRepository.save(new Todo("title3","body1"));
+        todoRepository.save(new Todo("title4","body1"));
+        todoRepository.save(new Todo("title5","body2"));
+
+        // slice는 size=3일 때 컨텐츠를 3개가 아닌 4개를 요청함.
+        PageRequest pageRequest =
+                PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "todoTitle")); // Spring Data JPA는 페이지를 1이 아닌 0부터 시작함. sorting 필요없으면 빼도 된다.
+
+        Slice<Todo> page = todoRepository.findByTodoTitleAndTodoBody("title5","body2", pageRequest); // Pageable이 있어서 구현체 없이도 구현 가능 + totalCount 쿼리도 날려 준다.
+
+        List<Todo> content = page.getContent();
+
+        assertThat(content.size()).isEqualTo(1); // 페이지사이즈 = 3 이지만, "body2"는 1개 뿐이기 때문에 1로 기대 ("body1"이었다면 총 4개 있지만 페이지사이즈 = 3 이니까 3으로 기대)
+//        assertThat(page.getTotalElements()).isEqualTo(1); // 총 컨텐츠 갯수는 5개이지만 body2"는 1개 뿐이기 때문에 1로 기대
+        assertThat(page.getNumber()).isEqualTo(0); // page number가져오기. 첫 페이지여서 0
+//        assertThat(page.getTotalPages()).isEqualTo(1); // 총 페이지 갯수 ("body1"이었다면 총 4개의 컨텐트, 페이지사이즈 = 3 이니까 2로 기대)
         assertThat(page.isFirst()).isTrue(); // 첫번째 페이지 존재여부
         assertThat(page.hasNext()).isFalse(); // 다음 페이지 존재여부 ("body1"이었다면 총 4개의 컨텐트, 페이지사이즈 = 3 이니까 총 2페이지이므로 isTrue)
     }

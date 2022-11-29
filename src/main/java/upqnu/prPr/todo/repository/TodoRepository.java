@@ -2,6 +2,7 @@ package upqnu.prPr.todo.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -35,5 +36,10 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     Optional<Todo> findOptionalByTodoTitle(String todoTitle); //단건 Optional
 
-    Page<Todo> findByTodoBody(String todoBody, Pageable pageable); //
+//    @Query(value = "select t from Todo t left join t.member m",
+//            countQuery = "select count(t) from Todo t") // count query분리하여 totalCount 구하는 시간을 단축시킬 수 있다.
+    Page<Todo> findByTodoBody(String todoBody, Pageable pageable); // paging 구현
+
+    Slice<Todo> findByTodoTitleAndTodoBody(String todoTitle, String todoBody, Pageable pageable); // slicing 구현
+
 }
