@@ -1,6 +1,7 @@
 package upqnu.prPr.todo.entity;
 
 import lombok.*;
+import upqnu.prPr.audit.BaseEntity;
 import upqnu.prPr.member.entity.Member;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"todoId", "todoTitle", "todoBody"})
-public class Todo {
+public class Todo extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -26,6 +27,10 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public Todo(String todoTitle) {
+        this.todoTitle = todoTitle;
+    }
 
     public Todo(String todoTitle, String todoBody) {
         this.todoTitle = todoTitle;

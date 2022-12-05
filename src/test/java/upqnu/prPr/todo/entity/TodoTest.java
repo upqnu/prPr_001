@@ -1,9 +1,11 @@
 package upqnu.prPr.todo.entity;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import upqnu.prPr.member.entity.Member;
+import upqnu.prPr.todo.repository.TodoRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @Rollback(false)
 class TodoTest {
+
+    @Autowired
+    TodoRepository todoRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -51,5 +56,22 @@ class TodoTest {
             System.out.println("todo = " + todo);
             System.out.println("member = " + todo.getMember());
         }
+    }
+
+    @Test
+    public void JpaEventBaseEntity() throws Exception {
+        Todo todo = new Todo("할일");
+        todoRepository.save(todo);
+
+        Thread.sleep(100);
+        todo.setTodoTitle("할일2");
+
+        em.flush();
+        em.clear();
+
+        Todo findTodo = todoRepository.findById(todo.getTodoId()).get();
+
+        System.out.println("findTodo.getCreatedAt() = " + findTodo.getCreatedAt());
+        System.out.println("findTodo.getUpdatedAt() = " + findTodo.getUpdatedAt());
     }
 }
