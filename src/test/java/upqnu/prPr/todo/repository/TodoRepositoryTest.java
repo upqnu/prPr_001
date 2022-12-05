@@ -214,4 +214,9 @@ class TodoRepositoryTest {
         assertThat(page.hasNext()).isFalse(); // 다음 페이지 존재여부 ("body1"이었다면 총 4개의 컨텐트, 페이지사이즈 = 3 이니까 총 2페이지이므로 isTrue)
     }
 
+    @Test
+    public void callCustom1() {
+        List<Todo> todoCustom1 = todoRepository.findTodoCustom1();
+    }
+
 }
