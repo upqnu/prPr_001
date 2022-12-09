@@ -33,7 +33,7 @@ public class TodoController {
 
     @PostConstruct
     public void init() {
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 20; i++) {
             todoRepository.save(new Todo("title" + i));
         }
     }
