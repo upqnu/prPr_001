@@ -2,9 +2,11 @@ package upqnu.prPr.check.requestmapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import upqnu.prPr.member.entity.Member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -84,6 +86,36 @@ public class RequestParamController {
         log.info("email={}, password={}", paramMap.get("email"), paramMap.get("password"));
 
         return "OK. 개인프로젝트 관리 서비스 prPr를 위한 요청 파라미터 - map으로 조회 테스트입니다.";
+    }
+
+//    @ResponseBody
+//    @RequestMapping("/model-attribute-v1")
+//    public String modelAttribute1(@RequestParam String email, @RequestParam String password) {
+//        Member member = new Member();
+//        member.setEmail(email);
+//        member.setPassword(password);
+//        log.info("email={}, password={}", member.getEmail(), member.getPassword());
+//        log.info("member={}",member);
+//
+//        return "OK. 개인프로젝트 관리 서비스 prPr를 위한 요청 파라미터 - ModelAttribute 테스트입니다.";
+//    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttribute1(@ModelAttribute Member member) {
+        log.info("email={}, password={}", member.getEmail(), member.getPassword());
+        log.info("member={}",member);
+
+        return "OK. 개인프로젝트 관리 서비스 prPr를 위한 요청 파라미터 - ModelAttribute 테스트입니다.";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttribute2(Member member) {
+        log.info("email={}, password={}", member.getEmail(), member.getPassword());
+        log.info("member={}",member);
+
+        return "OK. 개인프로젝트 관리 서비스 prPr를 위한 요청 파라미터 - ModelAttribute 테스트2입니다.";
     }
 
 }
