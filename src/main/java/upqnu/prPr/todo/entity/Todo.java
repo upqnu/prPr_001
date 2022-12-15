@@ -39,10 +39,10 @@ public class Todo extends BaseEntity {
 
     public Todo(String todoTitle, Member member) {
         this.todoTitle = todoTitle;
-        if(member != null) chnageMember(member);
+        if(member != null) changeMember(member);
     }
 
-    public void chnageMember(Member member) {
+    public void changeMember(Member member) {
         this.member = member;
         member.getToDos().add(this);
     }

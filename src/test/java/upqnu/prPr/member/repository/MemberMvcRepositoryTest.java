@@ -6,7 +6,7 @@ import upqnu.prPr.member.entity.Member;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*; // ~Assertions. 다음에 *이 와야 이 클래스에 속한 메서드를 정상적으로 사용할 수 있음.
 
 
 class MemberMvcRepositoryTest {
@@ -33,7 +33,7 @@ class MemberMvcRepositoryTest {
         Member member = new Member("aaa", "aaa.gmail.com");
         Member savedMember = memberMvcRepository.save(member);
 
-        Member findMember = memberMvcRepository.findById(savedMember.getMemberId());// id가 null이면 예외 발생하므로 원래 orElse와 함께 써야 한다.
+        Member findMember = memberMvcRepository.findById(savedMember.getMemberId());
 
         assertThat(findMember.getMemberId()).isEqualTo(savedMember.getMemberId());
         assertThat(findMember.getName()).isEqualTo(savedMember.getName());
@@ -54,7 +54,7 @@ class MemberMvcRepositoryTest {
     }
 
     @Test
-    void updatedMember() {
+    void updateMember() {
         Member member = new Member("aaa", "aaa.gmail.com");
         Member savedMember = memberMvcRepository.save(member);
         Long memberId = savedMember.getMemberId();
