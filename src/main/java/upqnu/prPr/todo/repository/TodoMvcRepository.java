@@ -1,7 +1,6 @@
 package upqnu.prPr.todo.repository;
 
 import org.springframework.stereotype.Repository;
-import upqnu.prPr.member.entity.Member;
 import upqnu.prPr.todo.entity.Todo;
 
 import java.util.ArrayList;
