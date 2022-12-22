@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import upqnu.prPr.member.repository.MemberRepository;
 import upqnu.prPr.todo.dto.TodoDto;
 import upqnu.prPr.todo.entity.Todo;
 import upqnu.prPr.todo.repository.TodoRepository;
