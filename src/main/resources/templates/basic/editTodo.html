@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>할일 수정</h2>
+    </div>
+    <form action="todo.html" th:action method="post">
+        <div>
+            <label for="todoId">할일 ID</label>
+            <input type="text" id="todoId" name="todoId" class="form-control" value="1" th:value="${todo.todoId}" readonly>
+        </div>
+        <div>
+            <label for="todoTitle">할일 제목</label>
+            <input type="text" id="todoTitle" name="todoTitle" class="form- control" value="할일A" th:value="${todo.todoTitle}">
+        </div>
+        <div>
+            <label for="todoBody">할일 내용</label>
+            <input type="text" id="todoBody" name="todoBody" class="form-control" th:value="${todo.todoBody}">
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">저장</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='todo.html'"
+                        th:onclick="|location.href='@{/basic/todos/{todoId}(todoId=${todo.todoId})}'|"
+                        type="button">취소</button>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
