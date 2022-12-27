@@ -15,18 +15,18 @@
     <div class="py-5 text-center">
         <h2>할일 수정</h2>
     </div>
-    <form action="todo.html" th:action method="post">
+    <form action="todo.html" th:action th:object="${todo}" method="post">
         <div>
             <label for="todoId">할일 ID</label>
-            <input type="text" id="todoId" name="todoId" class="form-control" value="1" th:value="${todo.todoId}" readonly>
+            <input type="text" id="todoId" class="form-control" th:field="*{todoId}" readonly>
         </div>
         <div>
             <label for="todoTitle">할일 제목</label>
-            <input type="text" id="todoTitle" name="todoTitle" class="form- control" value="할일A" th:value="${todo.todoTitle}">
+            <input type="text" id="todoTitle" class="form- control" th:field="*{todoTitle}">
         </div>
         <div>
             <label for="todoBody">할일 내용</label>
-            <input type="text" id="todoBody" name="todoBody" class="form-control" th:value="${todo.todoBody}">
+            <input type="text" id="todoBody" class="form-control" th:field="*{todoBody}">
         </div>
         <hr class="my-4">
         <div class="row">

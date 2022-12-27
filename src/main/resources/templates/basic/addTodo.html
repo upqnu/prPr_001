@@ -16,15 +16,15 @@
         <h2>할일 등록</h2>
     </div>
     <h4 class="mb-3">할일 입력</h4>
-    <form action="todo.html" th:action method="post">
+    <form action="todo.html" th:action th:object="${todo}" method="post">
 <!--    같은 URL로 오더라도 PostMapping의 메서드가 호출됨. 그래서 th:action 뒤를 비워도 됨 -->
         <div>
             <label for="todoTitle">할일 제목</label>
-            <input type="text" id="todoTitle" name="todoTitle" class="form-control" placeholder="할일 제목을 입력하세요">
+            <input type="text" id="todoTitle" th:field="*{todoTitle}" class="form-control" placeholder="할일 제목을 입력하세요">
         </div>
         <div>
             <label for="todoBody">할일 내용</label>
-            <input type="text" id="todoBody" name="todoBody" class="form-control" placeholder="할일의 내용을 입력하세요">
+            <input type="text" id="todoBody" th:field="*{todoBody}" class="form-control" placeholder="할일의 내용을 입력하세요">
         </div>
         <hr class="my-4">
         <div class="row">
