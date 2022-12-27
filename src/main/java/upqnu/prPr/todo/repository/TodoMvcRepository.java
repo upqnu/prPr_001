@@ -33,6 +33,7 @@ public class TodoMvcRepository {
         Todo findTodo = findById(todoId);
         findTodo.setTodoTitle(updatedTodo.getTodoTitle());
         findTodo.setMember(updatedTodo.getMember());
+        findTodo.setTodoBody(updatedTodo.getTodoBody());
     }
 
     public void clearTodo() {
