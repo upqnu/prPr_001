@@ -1,6 +1,7 @@
 package upqnu.prPr.todo.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import upqnu.prPr.todo.repository.TodoMvcRepository;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/basic/todos")
 @RequiredArgsConstructor
@@ -96,6 +98,8 @@ public class BasicTodoController {
      */
     @PostMapping("/add")
     public String addTodoV6(Todo todo, RedirectAttributes redirectAttributes) {
+        log.info("todo.open={}", todo.getDone());
+
         Todo savedTodo = todoMvcRepository.save(todo);
         redirectAttributes.addAttribute("todoId", savedTodo.getTodoId());
         redirectAttributes.addAttribute("status", true);

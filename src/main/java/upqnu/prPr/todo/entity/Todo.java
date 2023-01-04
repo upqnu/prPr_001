@@ -22,8 +22,12 @@ public class Todo extends BaseEntity {
 
     private String todoTitle;
     private String todoBody;
+    private Boolean done;
+
 //    private ??? todoTime;
-//    private TodoComp todoComp; // 완료여부 - todo가 존재하는 상태에서 완료/미완료로 구분
+
+    @Enumerated(EnumType.STRING)
+    private TodoCmplt todoCmplt = TodoCmplt.TODO_INCOMPLETE; // 완료여부 - todo가 존재하는 상태에서 완료/미완료로 구분
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "member_id")
@@ -46,6 +50,16 @@ public class Todo extends BaseEntity {
     public void changeMember(Member member) {
         this.member = member;
         member.getToDos().add(this);
+    }
+
+    public enum TodoCmplt {
+        TODO_COMPLETE("완료"), TODO_INCOMPLETE("미완료");
+
+        private final String cmplt;
+
+        TodoCmplt(String cmplt) {
+            this.cmplt = cmplt;
+        }
     }
 
 }

@@ -1,6 +1,3 @@
-#server:
-#  port: 8081
-
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/tprj001
@@ -27,3 +24,4 @@ logging:
     upqnu.prPr: debug
     org.hibernate.SQL: debug # hibernate가 남기는 모든 SQL이 모두 로그로 남는다
 #    org.hibernate.type: trace # 파라미터 바인딩된 파라미터까지 로그로 나온다.
+#    org.apache.coyote.http11: debug # HTTP 요청 메시지를 서버에서 보기 위해
