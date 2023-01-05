@@ -13,14 +13,14 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2 th:text="#{page.editTodo}">할일 상세</h2>
+        <h2 th:text="#{page.todo}">할일 상세</h2>
     </div>
 
     <h3 th:if="${param.status}" th:text="'할일이 저장되었습니다.'"></h3>
 
     <div>
         <label for="itemId" th:text="#{label.todo.todoId}">할일 ID</label>
-        <input type="text" id="itemId" name="itemId" class="form-control" value="1" th:value="${todoId}" readonly>
+        <input type="text" id="itemId" name="itemId" class="form-control" value="1" th:value="${todo.todoId}" readonly>
     </div>
     <div>
         <label for="itemName" th:text="#{label.todo.todoTitle}">할일 제목</label>
