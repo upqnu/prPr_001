@@ -19,6 +19,9 @@ spring:
 #        show_sql: true # System.out.print를 통해서 찍힘. logger를 사용한다면 주석처리 할 것.
         format_sql: true # 쿼리 한 줄에 나오지 않고 formatting되어 보기 좋게 출력됨
 
+  messages:
+    basename: messages # 스프링부트 메시지 소스 기본 값
+
 logging:
   level:
     upqnu.prPr: debug
