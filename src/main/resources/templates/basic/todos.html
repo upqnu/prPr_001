@@ -29,10 +29,10 @@
             </thead>
             <tbody>
             <tr th:each="todo : ${todos}">
-                <td><a href="todo.html" th:href="@{/message/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>
+                <td><a href="todo.html" th:href="@{/basic/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>
 <!--                <td><a href="todo.html" th:href="@{/basic/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>-->
 <!--                <td><a href="todo.html" th:href="@{|/basic/items/${todo.todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>-->
-                <td><a href="todo.html" th:href="@{|/message/todos/${todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>
+                <td><a href="todo.html" th:href="@{|/basic/todos/${todo.todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>
 
             </tr>
             </tbody>
