@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/tprj001
+
+    username : sa
+    password :
+    driver-class-name: org.h2.Driver
+
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false # Thymeleaf 템플릿 결과는 캐싱하는 것이 디폴트. 개발 시, Thymeleaf 수정 후 브라우저 새로고침하면 바로 반영이 되지 않음. → 따라서 개발 시, false로 하면 재시작 없이 새로고침만으로 반영됨.
+
+  jpa:
+    hibernate:
+      ddl-auto: create # create ; app 실행시점에 이미 생성되어 있던 테이블을 모두 삭제 후 다시 생성. 따라서 실제 배포된 서비스에는 create는 절대로 불가!
+    properties:
+      hibernate:
+#        show_sql: true # System.out.print를 통해서 찍힘. logger를 사용한다면 주석처리 할 것.
+        format_sql: true # 쿼리 한 줄에 나오지 않고 formatting되어 보기 좋게 출력됨
+
+  messages:
+    basename: messages # 스프링부트 메시지 소스 기본 값
+
+logging:
+  level:
+    upqnu.prPr: debug
+    org.hibernate.SQL: debug # hibernate가 남기는 모든 SQL이 모두 로그로 남는다
+#    org.hibernate.type: trace # 파라미터 바인딩된 파라미터까지 로그로 나온다.
+#    org.apache.coyote.http11: debug # HTTP 요청 메시지를 서버에서 보기 위해

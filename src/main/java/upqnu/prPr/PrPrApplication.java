@@ -2,16 +2,18 @@ package upqnu.prPr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing
 @SpringBootApplication
 public class PrPrApplication {
 
 	public static void main(String[] args) {
 
-		Hello hello = new Hello();
-		hello.setData("hello");
-		String data = hello.getData();
-		System.out.println("data = " + data);
+//		Hello hello = new Hello();
+//		hello.setData("hello");
+//		String data = hello.getData();
+//		System.out.println("data = " + data);
 
 		SpringApplication.run(PrPrApplication.class, args);
 	}
