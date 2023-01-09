@@ -41,58 +41,6 @@ public class BasicTodoController {
         return "basic/addTodo";
     }
 
-//    @PostMapping("/add")
-    public String addTodo1(@RequestParam String itemName, // addTodo.html의 input 태그에서의 name과 일치해야
-                       @RequestParam String price, // addTodo.html의 input 태그에서의 name과 일치해야
-                       Model model) { // 같은 URI이지만 Post와 Get 구현 - Post와 Get의 메서드가 구분되어 있다.
-        Todo todo = new Todo();
-        todo.setTodoTitle(itemName);
-        todo.setTodoBody(price);
-
-        todoMvcRepository.save(todo);
-
-        model.addAttribute("todo", todo);
-
-        return "basic/todo";
-    }
-
-//    @PostMapping("/add")
-    public String addTodo2(@ModelAttribute("todo") Todo todo, Model model) {
-
-        todoMvcRepository.save(todo);
-
-//        model.addAttribute("todo", todo); // 자동추가됨, 생략 가능
-
-        return "basic/todo";
-    }
-
-    /**
-     * @ModelAttribute name 생략 가능
-     * model.addAttribute(todo); 자동 추가, 생략 가능
-     * 생략시 model에 저장되는 name은 클래스명 첫글자만 소문자로 등록 Item -> item */
-//    @PostMapping("/add")
-    public String addTodo3(@ModelAttribute Todo todo) {
-
-        todoMvcRepository.save(todo);
-
-        return "basic/todo";
-    }
-
-    /**
-     * @ModelAttribute 자체 생략 가능
-     * model.addAttribute(todo) 자동 추가 */
-//    @PostMapping("/add")
-    public String addTodoV4(Todo todo) {
-        todoMvcRepository.save(todo);
-        return "basic/todo";
-    }
-
-//    @PostMapping("/add")
-    public String addTodoV5(Todo todo) {
-        todoMvcRepository.save(todo);
-        return "redirect:/basic/todos/" + todo.getTodoId();
-    }
-
     /**
      * PRG (Post/Redirect/Get) 및 RedirectAttributes 적용
      */
