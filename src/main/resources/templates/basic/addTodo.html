@@ -6,7 +6,11 @@
           href="../css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
-              max-width: 560px;
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
         }
     </style>
 </head>
@@ -18,13 +22,25 @@
     <h4 class="mb-3">할일 입력</h4>
     <form action="todo.html" th:action th:object="${todo}" method="post">
 <!--    같은 URL로 오더라도 PostMapping의 메서드가 호출됨. 그래서 th:action 뒤를 비워도 됨 -->
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">글로벌 오류 메시지</p>
+        </div>
         <div>
             <label for="todoTitle" th:text="#{label.todo.todoTitle}">할일 제목</label>
-            <input type="text" id="todoTitle" th:field="*{todoTitle}" class="form-control" placeholder="할일 제목을 입력하세요">
+            <input type="text" id="todoTitle" th:field="*{todoTitle}" th:errorclass="field-error"
+                   class="form-control" placeholder="할일 제목을 입력하세요">
+            <div class="field-error" th:errors="*{todoTitle}">
+                할일 제목 오류
+            </div>
         </div>
         <div>
             <label for="todoBody" th:text="#{label.todo.todoBody}">할일 내용</label>
-            <input type="text" id="todoBody" th:field="*{todoBody}" class="form-control" placeholder="할일의 내용을 입력하세요">
+            <input type="text" id="todoBody" th:field="*{todoBody}" th:errorclass="field-error"
+                   class="form-control" placeholder="필요한 경우, 할일의 내용을 입력하세요">
+            <div class="field-error" th:errors="*{todoBody}">
+                할일 내용 오류
+            </div>
         </div>
         <hr class="my-4">
         <div>완료 여부</div>

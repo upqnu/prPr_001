@@ -6,38 +6,37 @@
             href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2 th:text="#{page.todos}">할일 리스트</h2>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-primary float-end"
-                    onclick="location.href='addTodo.html'"
-                    th:onclick="|location.href='@{/basic/todos/add}'|"
-                    type="button"
-                    th:text="#{page.addTodo}">할일 등록</button> </div>
-    </div>
-    <hr class="my-4">
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th th:text="#{label.todo.todoId}">할일 ID</th>
-                <th th:text="#{label.todo.todoTitle}">할일 제목</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="todo : ${todos}">
-                <td><a href="todo.html" th:href="@{/basic/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>
-<!--                <td><a href="todo.html" th:href="@{/basic/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>-->
-<!--                <td><a href="todo.html" th:href="@{|/basic/items/${todo.todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>-->
-                <td><a href="todo.html" th:href="@{|/basic/todos/${todo.todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div> <!-- /container -->
+    <div class="container" style="max-width: 600px">
+        <div class="py-5 text-center">
+            <h2 th:text="#{page.todos}">할일 리스트</h2>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary float-end"
+                        onclick="location.href='addTodo.html'"
+                        th:onclick="|location.href='@{/basic/todos/add}'|"
+                        type="button"
+                        th:text="#{page.addTodo}">할일 등록</button> </div>
+        </div>
+        <hr class="my-4">
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th th:text="#{label.todo.todoId}">할일 ID</th>
+                    <th th:text="#{label.todo.todoTitle}">할일 제목</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="todo : ${todos}">
+                    <td><a href="todo.html" th:href="@{/basic/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>
+    <!--                <td><a href="todo.html" th:href="@{/basic/todos/{todoId}(todoId=${todo.todoId})}" th:text="${todo.todoId}">할일 ID</a></td>-->
+    <!--                <td><a href="todo.html" th:href="@{|/basic/items/${todo.todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>-->
+                    <td><a href="todo.html" th:href="@{|/basic/todos/${todo.todoId}|}" th:text="${todo.todoTitle}">할일 제목</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <!-- /container -->
 </body>
 </html>

@@ -11,48 +11,48 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="py-5 text-center">
-        <h2 th:text="#{page.todo}">할일 상세</h2>
-    </div>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2 th:text="#{page.todo}">할일 상세</h2>
+        </div>
 
-    <h3 th:if="${param.status}" th:text="'할일이 저장되었습니다.'"></h3>
+        <h3 th:if="${param.status}" th:text="'할일이 저장되었습니다.'"></h3>
 
-    <div>
-        <label for="itemId" th:text="#{label.todo.todoId}">할일 ID</label>
-        <input type="text" id="itemId" name="itemId" class="form-control" value="1" th:value="${todo.todoId}" readonly>
-    </div>
-    <div>
-        <label for="itemName" th:text="#{label.todo.todoTitle}">할일 제목</label>
-        <input type="text" id="itemName" name="itemName" class="form-control" value="상품A" th:value="${todo.todoTitle}" readonly>
-    </div>
-    <div>
-        <label for="price" th:text="#{label.todo.todoBody}">할일 내용</label>
-        <input type="text" id="price" name="price" class="form-control" value=10000 th:value="${todo.todoBody}" readonly>
-    </div>
-    <hr class="my-4">
-    <!-- single checkbox -->
-    <div>완료 여부</div>
-    <div>
-        <div class="form-check">
-            <input type="checkbox" id="open" th:field="${todo.done}" class="form-check-input" disabled>
-            <label for="open" class="form-check-label">완료 check</label>
+        <div>
+            <label for="itemId" th:text="#{label.todo.todoId}">할일 ID</label>
+            <input type="text" id="itemId" name="itemId" class="form-control" value=1L th:value="${todo.todoId}" readonly>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='editTodo.html'"
-                    th:onclick="|location.href='@{/basic/todos/{todoId}/edit(todoId=${todo.todoId})}'|"
-                    type="button" th:text="#{page.editTodo}">할일 수정</button>
+        <div>
+            <label for="itemName" th:text="#{label.todo.todoTitle}">할일 제목</label>
+            <input type="text" id="itemName" name="itemName" class="form-control" value="할일 제목" th:value="${todo.todoTitle}" readonly>
         </div>
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='todos.html'"
-                    th:onclick="|location.href='@{/basic/todos}'|"
-                    type="button" th:text="#{page.todos}">할일 리스트로 이동</button>
+        <div>
+            <label for="price" th:text="#{label.todo.todoBody}">할일 내용</label>
+            <input type="text" id="price" name="price" class="form-control" value="할일 내용" th:value="${todo.todoBody}" readonly>
         </div>
-    </div>
-</div> <!-- /container -->
+        <hr class="my-4">
+        <!-- single checkbox -->
+        <div>완료 여부</div>
+        <div>
+            <div class="form-check">
+                <input type="checkbox" id="open" th:field="${todo.done}" class="form-check-input" disabled>
+                <label for="open" class="form-check-label">완료 check</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg"
+                        onclick="location.href='editTodo.html'"
+                        th:onclick="|location.href='@{/basic/todos/{todoId}/edit(todoId=${todo.todoId})}'|"
+                        type="button" th:text="#{page.editTodo}">할일 수정</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='todos.html'"
+                        th:onclick="|location.href='@{/basic/todos}'|"
+                        type="button" th:text="#{page.todos}">할일 리스트로 이동</button>
+            </div>
+        </div>
+    </div> <!-- /container -->
 </body>
 </html>

@@ -20,7 +20,7 @@ spring:
         format_sql: true # 쿼리 한 줄에 나오지 않고 formatting되어 보기 좋게 출력됨
 
   messages:
-    basename: messages,config.i18n.messages # 스프링부트 메시지 소스 기본값, 국제화 기본값
+    basename: messages,config.i18n.messages,errors # 스프링부트 메시지 소스 기본값, 국제화 기본값
 
 logging:
   level:
