@@ -34,7 +34,6 @@ public class TodoMvcRepository {
         findTodo.setTodoTitle(updatedTodo.getTodoTitle());
         findTodo.setMember(updatedTodo.getMember());
         findTodo.setTodoBody(updatedTodo.getTodoBody());
-        findTodo.setDone(updatedTodo.getDone());
         // ..
     }
 

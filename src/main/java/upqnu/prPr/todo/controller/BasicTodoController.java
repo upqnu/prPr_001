@@ -46,7 +46,6 @@ public class BasicTodoController {
      */
     @PostMapping("/add")
     public String addTodoV6(Todo todo, RedirectAttributes redirectAttributes) {
-        log.info("todo.done={}", todo.getDone());
 
         Todo savedTodo = todoMvcRepository.save(todo);
         redirectAttributes.addAttribute("todoId", savedTodo.getTodoId());
@@ -63,7 +62,6 @@ public class BasicTodoController {
 
     @PostMapping("/{todoId}/edit")
     public String edit(@PathVariable Long todoId, @ModelAttribute Todo todo) {
-        log.info("todo.done={}", todo.getDone());
 
         todoMvcRepository.update(todoId, todo);
         return "redirect:/basic/todos/{todoId}";
