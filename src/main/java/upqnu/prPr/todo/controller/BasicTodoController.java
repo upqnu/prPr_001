@@ -29,13 +29,13 @@ import java.util.Map;
 public class BasicTodoController {
 
     private final TodoMvcRepository todoMvcRepository;
-    private final TodoValidator todoValidator;
-
-    @InitBinder
-    public void init(WebDataBinder dataBinder) {
-        log.info("init binder {}", dataBinder);
-        dataBinder.addValidators(todoValidator);
-    }
+//    private final TodoValidator todoValidator;
+//
+//    @InitBinder
+//    public void init(WebDataBinder dataBinder) {
+//        log.info("init binder {}", dataBinder);
+//        dataBinder.addValidators(todoValidator);
+//    }
 
     @GetMapping
     public String todos(Model model) { // Model 객체는 컨트롤러에서 데이터를 생성해 이를 JSP 즉 View에 전달하는 역할. HashMap 형태 - key, value값을 저장
@@ -131,7 +131,6 @@ public class BasicTodoController {
      */
 //    @PostMapping("/add")
     public String addTodoV6(Todo todo, RedirectAttributes redirectAttributes) {
-        log.info("todo.done={}", todo.getDone());
 
         Todo savedTodo = todoMvcRepository.save(todo);
         redirectAttributes.addAttribute("todoId", savedTodo.getTodoId());
@@ -315,7 +314,7 @@ public class BasicTodoController {
 //    @PostMapping("/add")
     public String addTodoV11(@ModelAttribute Todo todo, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        todoValidator.validate(todo, bindingResult);
+//        todoValidator.validate(todo, bindingResult);
 
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
@@ -334,8 +333,28 @@ public class BasicTodoController {
      * Validator로 분리2 ; WebDataBinder(스프링의 파라미터 바인딩의 역할을 해주고 검증 기능도 내부에 포함) 객체를 매개변수로 하는 메서드 void init으로 검증기 자동 적용 (해당 controller에만 영향 줌)
      * 위 Validator 1에서 validator를 직접 호출하는 부분이 사라지고, 대신에 검증 대상 앞에 @Validated 가 붙었다.
      */
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addTodoV12(@Validated @ModelAttribute Todo todo, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        //검증에 실패하면 다시 입력 폼으로
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {} ", bindingResult);
+            return "basic/addTodo";
+        }
+
+        //성공 로직
+        Todo savedTodo = todoMvcRepository.save(todo);
+        redirectAttributes.addAttribute("todoId", savedTodo.getTodoId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/todos/{todoId}";
+    }
+
+    /**
+     * 스프링 부트가 spring-boot-starter-validation 라이브러리를 넣으면 자동으로 Bean Validator를 인지하고 스프링에 통합한다. -> @Valid, @Validated 만 적용하면 된다.
+     * @ModelAttribute 각각의 필드 타입 변환시도 변환에 성공한 필드만 BeanValidation 적용
+     */
+    @PostMapping("/add")
+    public String addTodoV13(@Validated @ModelAttribute Todo todo, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
@@ -359,7 +378,6 @@ public class BasicTodoController {
 
     @PostMapping("/{todoId}/edit") // todo 수정하기
     public String edit(@PathVariable Long todoId, @ModelAttribute Todo todo) {
-        log.info("todo.done={}", todo.getDone());
 
         todoMvcRepository.update(todoId, todo);
         return "redirect:/basic/todos/{todoId}"; // todo 수정 후, todo 상세페이지로 이동 - 이동하는데 redirect 사용

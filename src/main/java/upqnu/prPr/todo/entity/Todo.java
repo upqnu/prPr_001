@@ -1,10 +1,13 @@
 package upqnu.prPr.todo.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 import upqnu.prPr.audit.BaseEntity;
 import upqnu.prPr.member.entity.Member;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -20,9 +23,12 @@ public class Todo extends BaseEntity {
 
 //    private TodoStatus todoStatus;
 
+    @NotBlank
+    @Size(min = 3, max = 50) // String type에 @Range를 쓰면 TransactionSystemException 및 RollbackException 발생.
     private String todoTitle;
+
+    @Size(max = 200)
     private String todoBody;
-    private Boolean done;
 
 //    private ??? todoTime;
 
