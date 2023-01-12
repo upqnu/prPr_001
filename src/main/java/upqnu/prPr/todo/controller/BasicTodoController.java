@@ -356,6 +356,15 @@ public class BasicTodoController {
     @PostMapping("/add")
     public String addTodoV13(@Validated @ModelAttribute Todo todo, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+//        //특정 필드 예외가 아닌 전체 예외 (오브젝트 관련 오류는 entity클래스에 @ScriptAssert() 붙여주는 것보다 오브젝트 오류 관련 부분만 직접 자바 코드로 작성하는 것을 권장
+//        if (item.getPrice() != null && item.getQuantity() != null) {
+//            int resultPrice = item.getPrice() * item.getQuantity();
+//            if (resultPrice < 10000) {
+//                bindingResult.reject("totalPriceMin", new Object[]{10000,
+//                        resultPrice}, null);
+//            }
+//        }
+
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             log.info("errors = {} ", bindingResult);
