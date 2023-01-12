@@ -386,7 +386,21 @@ public class BasicTodoController {
     }
 
     @PostMapping("/{todoId}/edit") // todo 수정하기
-    public String edit(@PathVariable Long todoId, @ModelAttribute Todo todo) {
+    public String edit(@PathVariable Long todoId, @Validated @ModelAttribute Todo todo, BindingResult bindingResult) {
+
+        //        //특정 필드 예외가 아닌 전체 예외 (오브젝트 관련 오류는 entity클래스에 @ScriptAssert() 붙여주는 것보다 오브젝트 오류 관련 부분만 직접 자바 코드로 작성하는 것을 권장
+//        if (item.getPrice() != null && item.getQuantity() != null) {
+//            int resultPrice = item.getPrice() * item.getQuantity();
+//            if (resultPrice < 10000) {
+//                bindingResult.reject("totalPriceMin", new Object[]{10000,
+//                        resultPrice}, null);
+//            }
+//        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {} ", bindingResult);
+            return "basic/editTodo";
+        }
 
         todoMvcRepository.update(todoId, todo);
         return "redirect:/basic/todos/{todoId}"; // todo 수정 후, todo 상세페이지로 이동 - 이동하는데 redirect 사용

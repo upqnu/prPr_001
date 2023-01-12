@@ -7,7 +7,11 @@
     <style>
         .container {
             max-width: 560px;
-    }
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -16,17 +20,29 @@
         <h2 th:text="#{page.editTodo}">할일 수정</h2>
     </div>
     <form action="todo.html" th:action th:object="${todo}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">글로벌 오류 메시지</p>
+        </div>
         <div>
             <label for="todoId" th:text="#{label.todo.todoId}">할일 ID</label>
-            <input type="text" id="todoId" class="form-control" th:field="*{todoId}" readonly>
+            <input type="text" id="todoId" th:field="*{todoId}" class="form-control" readonly>
         </div>
         <div>
             <label for="todoTitle" th:text="#{label.todo.todoTitle}">할일 제목</label>
-            <input type="text" id="todoTitle" class="form-control" th:field="*{todoTitle}">
+            <input type="text" id="todoTitle" th:field="*{todoTitle}" th:errorclass="field-error" class="form-control"
+                   placeholder="할일 제목을 입력하세요">
+            <div class="field-error" th:errors="*{todoTitle}">
+                할일 제목 오류
+            </div>
         </div>
         <div>
             <label for="todoBody" th:text="#{label.todo.todoBody}">할일 내용</label>
-            <input type="text" id="todoBody" class="form-control" th:field="*{todoBody}">
+            <input type="text" id="todoBody" th:field="*{todoBody}" th:errorclass="field-error" class="form-control"
+                   placeholder="할일 제목을 입력하세요">
+            <div class="field-error" th:errors="*{todoBody}">
+                할일 제목 오류
+            </div>
         </div>
         <hr class="my-4">
         <div>완료 여부</div>
